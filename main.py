@@ -1,25 +1,13 @@
 from graphics import Window
-from game import Cell
+from maze import Maze
 
 
 def main():
     win = Window(800, 600)
     
-    c = Cell(win)
-    c.has_left_wall = False
-    c.draw(50, 50, 100, 100)
-
-    c = Cell(win)
-    c.has_right_wall = False
-    c.draw(125, 125, 200, 200)
-
-    c = Cell(win)
-    c.has_bottom_wall = False
-    c.draw(225, 225, 250, 250)
-
-    c = Cell(win)
-    c.has_top_wall = False
-    c.draw(300, 300, 500, 500)
+    maze = Maze(50, 50, 5, 5, 100, 100, win)
+    maze._create_cells()
+    
     
     win.wait_for_close()
     

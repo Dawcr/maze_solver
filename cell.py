@@ -11,7 +11,7 @@ class Cell():
         self._x2 = None # bottom-right corner
         self._y1 = None # top-left corner
         self._y2 = None # bottom-right corner
-        self._win: Window = win
+        self._win = win
         
     def draw(self, x1: int, y1: int, x2: int, y2: int, fill_color: str = "black") -> None:
         self.set_corners(x1, y1, x2, y2)
@@ -39,3 +39,15 @@ class Cell():
         self._x2 = x2
         self._y1 = y1
         self._y2 = y2
+        
+    def get_center(self) -> Point:
+        half_width = abs(self._x2 - self._x1) // 2
+        half_height = abs(self._y2 - self._y1) // 2
+        return Point(self._x1 + half_width, self._y1 + half_height) 
+        
+    def draw_move(self, to_cell: 'Cell', undo: bool = False) -> None:
+        color = "gray" if undo else "red"
+        center_line = Line(self.get_center(), to_cell.get_center())
+        # can probably avoid a lot of overhead by using less assignments and more primitive types but this is meant to be practice on readability
+        self._win.draw_line(center_line, color)
+        
